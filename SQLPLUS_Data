@@ -1,0 +1,292 @@
+------------------------------------17/05/2019------------------------------------------
+
+ORACLE SERVER -> Trae una Instancia y una Base de Datos
+
+Instancia: son estructuras de memoria y procesos.
+Base de Datos: es un conjunto de archivos.
+
+Instancia, Estructura de memoria son SGA (System Global Area), procesos de background
+
+Instacia TF
+Base de Datos TF
+
+Recomendar llamar la isntancia y Base de Datos igual
+
+Base de Dato contiene; Control File, Data File F, Redo File, LOG File
+
+Control File, archivos de control de Oracle
+Data File, archivos del cliente
+Redo File, historico cuando se tocan los datos
+LOG File, historico
+
+SQL PLUS Lenguaje de relacion de datos, ayuda a comunicarse con la instancia y la base de datos
+
+DATOS -> OS -> RDBMS ORACLE -> SQL PLUS -> Herramientas de desarrollo -> Aplicaciones
+
+Report Form Herramientas de ORACLE para hacer aplicaciones
+
+ORACLE intenta que todo las consultas se ejecuten en memoria por velocidad, luego hay procesos
+que graban en el disco.
+
+TableSapces: Tienen Tablas datos, indices, Undo, Systen, al crear una nueva tabla va estar 
+contenidad en una gaveta TableSpace.
+
+ORACLE comando rollback me deja todo como estaba, guardar todo la informacion vieja en Undo.
+
+SQL (Structure Query Language)
+SQL PLUS ambiente de ORACLE.
+
+Comandos SQL:
+* Queries -> SELECT
+* DML (Data Manipulation Language) -> INSERT, UPDATE, DELETE
+* DDL (Data Definition Languge) -> CREATE, ALTER, DROP...
+* CT (Control de Transacciones) -> COMMIT ROLLBACK
+* DCL (Data Control Language) -> GRANT, REMOVE
+
+Transaccion: serie de pasos hasta culminar un proceso sino esta listo rollback.
+
+QUERIES: 
+
+- Linux / UNIX
+
+$ sqlplus usuarioOracle/claveUsuarioOracle@nombreBaseDatos
+$ sqlplus usuarioOracle@nombreBaseDatos
+
+sql>
+
+- Windows 
+
+cmd> sqlplus usuarioOracle/claveUsuarioOracle@nombreBaseDatos
+
+sql>
+
+SELECT:
+
+SELECT columns1, columns2
+	FROM Table;
+	
+SELECT ename, sal, sal * 15
+	FROM EMP
+
+Nombre de las columnas retornan en mayusculas
+
+Operadores * / + -
+
+SELECT ename, sal, sal * 15 PAQUETE_ANUAL
+FROM EMP;
+	
+SELECT ename, sal, sal * 15 "PAQUETE ANUAL"
+FROM EMP;
+	
+SELECT ename, sal, sal * 15 "Paquete Anual"
+FROM EMP;
+	
+SELECT ename, sal, sal * 15 "PAQUETE ANUAL"
+FROM EMP
+WHERE sal >= 3000;
+	
+SELECT *
+FROM EMP
+WHERE sal >= 3000;
+
+FUNCIONES:
+
+UPPER, LOWER, INITCAP
+
+OPERADORES LOGICOS:
+
+SELECT ename, sal
+FROM EMP
+WHER sal >= 3000 AND sal <= 4000;
+
+SELECT ename, deptno
+FROM EMP
+WHERE deptno = 10 OR deptno = 20 OR deptno = 30;
+
+SELECT ename, deptno
+FROM EMP
+WHERE deptno IN(10,20,30)
+
+SELECT ename, deptno
+FROM EMP
+WHERE deptno NOT IN(10,20,30)
+
+SELECT ename, deptno
+FROM EMP
+WHERE deptno <> 10 OR deptno <> 20 OR deptno <> 30;
+
+SELECT ename, deptno
+FROM EMP
+WHERE deptno NOT BETWEEN 3000 AND 4000;
+
+SELECT sal, commm, sal + comm A
+FROM EMP;
+
+Evitar valores nulos en operaciones con columnas
+
+NVL(a, b) *Los argmentos deben ser del mismo tipo INT, VARCHAR, DATE, DATETIME, etc.
+
+Si a == null muestra b, sino muestra  a
+
+Ejemplo
+
+NVL(comm, 0)
+
+SELECT sal, commm, sal + NVL(comm, 0) A
+FROM EMP;
+
+CONCATENACION:
+
+SELECT ename||'*'
+FROM EMP;
+
+Ejemplo: 	Nick*
+			Hector*
+			
+SELECT ename||' GANA '|| sal
+FROM EMP;
+
+Ejemplo: 	Nick GANA 4000
+			Hector GANA 5000		
+
+
+SELECT ename||' GANA '|| sal Alias
+FROM EMP;
+
+Ejemplo:   	|_____Alias_____|
+			Nick GANA 4000
+			Hector GANA 5000			
+
+LIKE:
+
+SELECT ename
+FROM EMP
+WHERE ename LIKE 'A%'; NOTA: % es el * de Linux Command Line
+
+SELECT ename
+FROM EMP
+WHERE ename LIKE '%a';
+
+SELECT ename
+FROM EMP
+WHERE ename LIKE '%a%';
+
+SELECT ename
+FROM EMP
+WHERE ename LIKE '%a%a%';
+
+SELECT ename
+FROM EMP
+WHERE ename LIKE '_a';   NOTA: _ es el ? de Linux Command Line
+
+SELECT ename
+FROM EMP
+WHERE ename LIKE '%a_';
+
+DISTINTOS:
+
+SELECT DISTINC job 
+FROM EMP;
+
+SELECT DISTINC job, ename, sal
+FROM EMP;
+
+afied.buf -> Buffer de SQL PLUS 
+
+sql> EDIT  -> edita el buffer
+---------------------------
+|SELECT DISTINC job, ename, sal
+|FROM EMP/   -> el buffer no usa ; sino /
+|
+|
+|
+|
+----------------------------
+sql> RUN   -> ejecuta lo que esta en el buffer
+
+
+PL SQL:
+
+PROGRAMMING LANGUAGE SQL
+ESTRUCTURA DE LENGUAGE PROCEDURAL
+
+SCRIPTS:
+
+sql> EDIT prueba
+
+-------------------------------
+|
+|
+| COMANDO SQL -> terminan en ;
+|
+|
+-------------------------------
+
+Guardo y Ejecutar Script
+
+sql> START prueba
+sql> @prueba
+
+Guardar lo del buffer en un scripot
+
+sql> SAVE nombreScript.sql 
+
+Traer del buffer el contenido de un archivo
+
+sql> GET nombreScript.sql
+
+LINESIZE: -> tamaño de la linea
+
+PAGESIZE: -> tamaño de la pagina
+
+sql> SET LINESIZE 132;
+sql> SET PAGESIZE 232;
+
+WHERE IS ORACLE INSTALLED:
+
+-Linux
+$ echo $ORACLE_HOME
+$ path/
+
+$ cd path
+$ emacs -nw glogin.sql
+------------------------------------
+| SET LINESIZE 132;
+| SET PAGESIZE 500;
+|
+| SET SQLPROMPT TF>
+|
+------------------------------------
+
+SHOW LINESIZE -> muestra este set de configuracion
+
+SHOW ALL -> muestra todo el set de configuraciones
+
+SPOOL archivo.sql -> si no le dijo nada archivo.lst
+-> guarda todo al archivo en el promt
+sql> SPOOL OFF; -> detiene el guardado en el archivo
+
+
+TRANSACCION 1
+
+sql> 
+DML
+DML
+DML
+COMMIT;
+DML
+DML
+DML
+ROLLBACK;
+DML
+DML
+DML
+EXIT;-> el EXIT trae un commit implicito, aun si olvide colocar el commit
+
+DDL -> alterar, borrar, crear trae un commit implicito
+
+COMANDO VER TIPO DE DATOS:
+
+sql> DESCRIBE tableName;
+
+------------------------------------18/05/2019------------------------------------------
