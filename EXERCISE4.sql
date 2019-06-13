@@ -1,0 +1,2 @@
+SELECT ENAME || ' GANA = ' || SAL || ', QUIERE GANAR = ' || SAL * 3 
+FROM EMP;

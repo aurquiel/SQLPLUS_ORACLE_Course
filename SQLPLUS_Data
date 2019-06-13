@@ -91,7 +91,7 @@ WHERE sal >= 3000;
 
 FUNCIONES:
 
-UPPER, LOWER, INITCAP
+UPPER, LOWER, 4 MILLER     CLERK           778
 
 OPERADORES LOGICOS:
 
@@ -290,3 +290,34 @@ COMANDO VER TIPO DE DATOS:
 sql> DESCRIBE tableName;
 
 ------------------------------------18/05/2019------------------------------------------
+
+
+LOGIN sqlplus
+
+sqlplus user/userPassword
+
+RETURN TO HOST 
+
+host
+
+PREGUNTAR SI ES NULL
+
+WHERE campo IS NULL
+WHERE campo IS NOT NULL
+
+TBALA DUAL:
+
+SELECT 'HOLA' FROM DUAL;
+
+OTROS:
+
+SELECT ENAME, 8 FROM EMP;
+
+SELECT SYSDATE FROM DUAL;
+
+ORDER BY:
+
+ORDER BY col DESC;
+ORDER BY col ASC;
+
+SELECT TO_CHAR(SYSDATE, 'fmDD "de" Month "de" YYYY')
